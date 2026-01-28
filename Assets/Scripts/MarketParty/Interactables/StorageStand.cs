@@ -22,7 +22,9 @@ namespace MarketParty.Interactables
 
             var product = Instantiate(ProductsManager.Instance.GetRandomProductPrefab(_productTag), transform.position, Quaternion.identity);
 
-            product.transform.DOJump(storageBox.transform.position, 0.5f, 1, 0.5f);
+            // todo add rigidbody, remove parent.
+            product.transform.SetParent(storageBox.transform);
+            product.transform.DOLocalJump(Vector3.zero, 0.5f, 1, 0.5f);
 
             storageBox.AddProduct(product);
 

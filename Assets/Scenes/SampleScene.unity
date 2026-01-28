@@ -3979,6 +3979,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5645ec8c7554af0966e94bf756bd336, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MarketParty.Players.Pickables.StorageBox
+  _maxCount: 10
 --- !u!1001 &390517093
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5848,6 +5849,24 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5773620044964497639, guid: 0e654d5582171844f806ef675f242c80, type: 3}
   m_PrefabInstance: {fileID: 664436527}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &682384171 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5843703932095700481, guid: 063e0cbeb8b87334d9a94c8b78fe656a, type: 3}
+  m_PrefabInstance: {fileID: 7153366547201483936}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &682384177
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 682384171}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a1c4050f7854803a4de977c31014cd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MarketParty.Interactables.StorageStand
+  _productTag: 2
 --- !u!1001 &682668975
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18488,7 +18507,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5843703932095700481, guid: 063e0cbeb8b87334d9a94c8b78fe656a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 682384177}
   m_SourcePrefab: {fileID: 100100000, guid: 063e0cbeb8b87334d9a94c8b78fe656a, type: 3}
 --- !u!1001 &7501549097863088489
 PrefabInstance:

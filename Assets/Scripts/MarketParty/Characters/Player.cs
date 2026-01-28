@@ -10,7 +10,7 @@ namespace MarketParty.Characters
 {
     public class Player : MonoBehaviour
     {
-        private readonly int _interactablesLayerMask = LayerMask.GetMask("Interactables");
+        private int _interactablesLayerMask;
 
         [SerializeField]
         private float _moveSpeed = 1.5f;
@@ -36,6 +36,8 @@ namespace MarketParty.Characters
 
         private void Awake()
         {
+            _interactablesLayerMask = LayerMask.GetMask("Interactables");
+
             // not working ... :(
             /*
             var gamepad = (DualShockGamepad)Gamepad.current;

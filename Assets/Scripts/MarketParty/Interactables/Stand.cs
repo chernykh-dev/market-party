@@ -93,12 +93,25 @@ namespace MarketParty.Interactables
         {
             for (var i = 0; i < _maxProducts; i++)
             {
-                if (!_productPlaces[i].IsEmpty)
+                var productPlace = _productPlaces[i];
+
+                if (!productPlace.IsEmpty)
                 {
                     continue;
                 }
 
+                _availableProducts.Add(i);
 
+                product.transform.DOJump(_productPlaces[i].transform.position, 1f, 1, 0.5f)
+                    .OnComplete(() =>
+                    {
+                        productPlace.Product = product;
+                        productPlace.IsEmpty = true;
+
+                        product.transform.SetParent(productPlace.transform);
+                    });
+
+                return;
             }
         }
 
@@ -128,7 +141,7 @@ namespace MarketParty.Interactables
                 return false;
             }
 
-
+            AddProduct(product);
 
             // AddProduct(player.transform);
             LevelManager.Instance.AddReceivedExperience(10);
