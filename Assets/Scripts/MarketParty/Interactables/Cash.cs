@@ -2,6 +2,8 @@
 using System.Linq;
 using MarketParty.Characters;
 using MarketParty.Managers;
+using MarketParty.Players;
+using MarketParty.Players.Pickables;
 using UnityEngine;
 
 namespace MarketParty.Interactables
@@ -38,8 +40,12 @@ namespace MarketParty.Interactables
             _customers.Enqueue(customer);
         }
 
-        public void LongInteract(Player player)
+        public bool LongInteract(PlayerHands playerHands)
         {
+            if (playerHands.CurrentPickable is not EmptyHands emptyHands)
+                return false;
+
+            // todo copy of LongInteract(Player).
             if (_customers.Count > 0)
             {
                 var customer = _customers.Dequeue();
@@ -58,6 +64,24 @@ namespace MarketParty.Interactables
                         _customersEnterPoint.transform.position - Vector3.right * i * 0.5f,
                         Quaternion.identity));
                 }
+            }
+
+            return true;
+        }
+
+        public void RemoveCustomer(Customer customer)
+        {
+            var newCustomers = _customers.ToList();
+            newCustomers.Remove(customer);
+            _customers = new Queue<Customer>(newCustomers);
+
+            LevelManager.Instance.FailCustomer(customer);
+
+            for (var i = 0; i < newCustomers.Count; i++)
+            {
+                newCustomers[i].MoveInQueue(Instantiate(_customersEnterPoint,
+                    _customersEnterPoint.transform.position - Vector3.right * i * 0.5f,
+                    Quaternion.identity));
             }
         }
     }

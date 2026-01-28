@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace MarketParty
 {
@@ -19,6 +20,16 @@ namespace MarketParty
 
                 return _instance;
             }
+        }
+
+        protected void Awake()
+        {
+            if (Instance == this)
+            {
+                return;
+            }
+
+            Destroy(gameObject);
         }
     }
 }

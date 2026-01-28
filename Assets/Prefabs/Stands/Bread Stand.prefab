@@ -52,6 +52,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -3998839010722928496, guid: 4776ab3fcf920b84e80c4fa99791aa72, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: -1915249436211983552, guid: 4776ab3fcf920b84e80c4fa99791aa72, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -59,6 +63,14 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 4776ab3fcf920b84e80c4fa99791aa72, type: 3}
       propertyPath: m_Name
       value: Bread Stand
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4776ab3fcf920b84e80c4fa99791aa72, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8367908967114958848, guid: 4776ab3fcf920b84e80c4fa99791aa72, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

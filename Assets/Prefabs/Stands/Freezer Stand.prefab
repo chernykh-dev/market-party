@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1407228464672927754}
   - component: {fileID: 4305625593770874351}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Product Place (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54,7 +54,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3897674159222023994}
   - component: {fileID: 36732742706786732}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Product Place
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -98,7 +98,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7938368016957450185}
   - component: {fileID: 740046509425279892}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Product Place (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -142,7 +142,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6177764744499982957}
   - component: {fileID: 1155669442656944412}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Product Place (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -227,6 +227,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 07d7f2ff77694f0498cd00f7e2dba599, type: 3}
       propertyPath: m_Name
       value: Freezer Stand
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 07d7f2ff77694f0498cd00f7e2dba599, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

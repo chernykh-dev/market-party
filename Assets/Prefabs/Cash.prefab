@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7229350463974502489}
   - component: {fileID: 163906313879978581}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: QueuePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,6 +95,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 5cdf426fe5e788c4e996fc1c517e700c, type: 3}
       propertyPath: m_Name
       value: Cash
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 5cdf426fe5e788c4e996fc1c517e700c, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 5cdf426fe5e788c4e996fc1c517e700c, type: 3}
       propertyPath: m_TagString

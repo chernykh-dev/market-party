@@ -4,7 +4,7 @@ using Random = UnityEngine.Random;
 
 namespace MarketParty
 {
-    public class CustomersSpawner : MonoBehaviour
+    public class CustomersSpawner : Singleton<CustomersSpawner>, IInitializable
     {
         [SerializeField]
         private GameObject _customerPrefab;
@@ -23,20 +23,31 @@ namespace MarketParty
         private float _customerSpawnTimeoutRangeMax = 6f;
 
         private int _currentCustomersCount = 0;
-        private int _customersCount;
+        private int _customersCount = 0;
 
         private Transform _spawnPoint;
 
         private float _spawnTime = 0f;
         private float _spawnTimeout;
 
-        private void Start()
+        public void Init()
         {
             _customersCount = Random.Range(_customersRangeMin, _customersRangeMax + 1);
 
             _spawnPoint = transform.GetChild(0).transform;
 
             ResetSpawnTimer();
+        }
+
+        private void Start()
+        {
+            if (_customersCount > 0)
+            {
+                return;
+            }
+
+            // TODO
+            var _ = Instance;
         }
 
         private void Update()
@@ -72,6 +83,21 @@ namespace MarketParty
             _spawnTime = 0f;
 
             _spawnTimeout = Random.Range(_customerSpawnTimeoutRangeMin, _customerSpawnTimeoutRangeMax);
+        }
+
+        public void UpDifficult(int currentWave)
+        {
+            _customersCount += Random.Range(_customersRangeMin + 1 * currentWave,  _customersRangeMax + 2 * currentWave);
+
+            if (_customerSpawnTimeoutRangeMin > 0.1f * currentWave)
+            {
+                _customerSpawnTimeoutRangeMin -= 0.1f * currentWave;
+            }
+
+            if (_customerSpawnTimeoutRangeMax > 0.2f * currentWave)
+            {
+                _customerSpawnTimeoutRangeMax -= 0.2f * currentWave;
+            }
         }
     }
 }

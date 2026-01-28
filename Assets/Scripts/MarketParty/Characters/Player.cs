@@ -1,5 +1,7 @@
 ﻿using System;
 using MarketParty.Interactables;
+using MarketParty.Players;
+using MarketParty.Players.Pickables;
 using MarketParty.UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -8,6 +10,8 @@ namespace MarketParty.Characters
 {
     public class Player : MonoBehaviour
     {
+        private readonly int _interactablesLayerMask = LayerMask.GetMask("Interactables");
+
         [SerializeField]
         private float _moveSpeed = 1.5f;
 
@@ -17,6 +21,7 @@ namespace MarketParty.Characters
         [SerializeField]
         private float _interactDistance = 1f;
 
+        private PlayerHands _playerHands;
         private Rigidbody _rigidbody;
         private Camera _mainCamera;
 
@@ -37,6 +42,7 @@ namespace MarketParty.Characters
             gamepad.SetLightBarColor(Color.purple);
             */
 
+            _playerHands =  GetComponent<PlayerHands>();
             _rigidbody = GetComponent<Rigidbody>();
             _mainCamera = Camera.main;
             CharacterAnimator =  GetComponent<CharacterAnimator>();
@@ -50,43 +56,72 @@ namespace MarketParty.Characters
         public void OnSprint(InputValue value)
         {
             _isSprint = value.isPressed;
-
-            print(_isSprint);
         }
 
         public void OnInteract(InputValue value)
         {
-            print("interact");
-
-            CharacterAnimator.SetInteract();
-
-            if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out var hit))
+            if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward),
+                    out var hit, _interactDistance, _interactablesLayerMask))
             {
                 if (hit.collider.TryGetComponent(out IInteractable interactable))
                 {
-                    interactable.Interact(this);
+                    if (_playerHands.TryInteract(interactable))
+                    {
+                        CharacterAnimator.SetInteract();
+
+                        return;
+                    }
+                }
+                // todo: возможно лучше сделать через interactable.
+                else if (hit.collider.TryGetComponent(out IPickable pickable))
+                {
+                    if (_playerHands.TryPick(pickable))
+                    {
+                        CharacterAnimator.SetPickUp();
+
+                        return;
+                    }
                 }
             }
+
+            CharacterAnimator.SetEmoteNo();
         }
 
         public void OnLongInteract(InputValue value)
         {
-            print("long interact");
-
-            CharacterAnimator.SetInteract();
-
-            if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out var hit))
+            if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward),
+                    out var hit, _interactDistance, _interactablesLayerMask))
             {
                 if (hit.collider.TryGetComponent(out ILongInteractable longInteractable))
                 {
-                    longInteractable.LongInteract(this);
+                    if (_playerHands.TryLongInteract(longInteractable))
+                    {
+                        CharacterAnimator.SetInteract();
+
+                        return;
+                    }
                 }
             }
+
+            CharacterAnimator.SetEmoteNo();
+        }
+
+        public void OnThrow(InputValue value)
+        {
+            if (_playerHands.TryThrowCurrentPickable())
+            {
+                CharacterAnimator.SetThrow();
+
+                return;
+            }
+
+            CharacterAnimator.SetEmoteNo();
         }
 
         private void FixedUpdate()
         {
-            if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out var hit, _interactDistance))
+            if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward),
+                    out var hit, _interactDistance, _interactablesLayerMask))
             {
                 if (hit.collider.TryGetComponent<ISelectable>(out var selectable))
                 {
@@ -128,7 +163,7 @@ namespace MarketParty.Characters
 
                 if (hit.collider.TryGetComponent<ILongInteractable>(out var longInteractable))
                 {
-                    InputPopUpsManager.Instance.ShowPlaystationCrossButton(transform);
+                    InputPopUpsManager.Instance.ShowPlaystationSquareButton(transform);
                 }
             }
             else

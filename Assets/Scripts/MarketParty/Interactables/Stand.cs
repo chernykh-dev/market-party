@@ -3,6 +3,8 @@ using System.Linq;
 using DG.Tweening;
 using MarketParty.Characters;
 using MarketParty.Managers;
+using MarketParty.Players;
+using MarketParty.Players.Pickables;
 using MarketParty.UI;
 using UnityEngine;
 
@@ -17,19 +19,19 @@ namespace MarketParty.Interactables
         private StandInfoPopUp _standInfoPopUpPrefab;
 
         private List<int> _availableProducts = new List<int>();
-        private List<StandProductPlace> _products;
+        private List<StandProductPlace> _productPlaces;
         private int _maxProducts;
 
         private StandInfoPopUp _standInfoPopUp;
 
         private void Start()
         {
-            _products = GetComponentsInChildren<StandProductPlace>().ToList();
-            _maxProducts = _products.Count;
+            _productPlaces = GetComponentsInChildren<StandProductPlace>().ToList();
+            _maxProducts = _productPlaces.Count;
 
             for (var i = 0; i < _maxProducts; i++)
             {
-                _products[i].SetProduct(ProductsManager.Instance.GetRandomProductPrefab(_productTag));
+                _productPlaces[i].SetProduct(ProductsManager.Instance.GetRandomProductPrefab(_productTag));
 
                 _availableProducts.Add(i);
             }
@@ -51,7 +53,9 @@ namespace MarketParty.Interactables
 
             _availableProducts.Remove(randomProduct);
 
-            var product = _products[randomProduct].Product;
+            var product = _productPlaces[randomProduct].Product;
+
+            _productPlaces[randomProduct].IsEmpty = true;
 
             product.transform.DOJump(to.transform.position, 1f, 1, 0.5f)
                 .OnComplete(() => product.gameObject.SetActive(false));
@@ -68,7 +72,7 @@ namespace MarketParty.Interactables
         {
             for (var i = 0; i < _maxProducts; i++)
             {
-                var product = _products[i].Product;
+                var product = _productPlaces[i].Product;
 
                 if (product.gameObject.activeSelf)
                 {
@@ -79,23 +83,57 @@ namespace MarketParty.Interactables
                 product.gameObject.SetActive(true);
                 _availableProducts.Add(i);
 
-                product.transform.DOJump(_products[i].transform.position, 1f, 1, 0.5f);
+                product.transform.DOJump(_productPlaces[i].transform.position, 1f, 1, 0.5f);
 
                 return;
             }
         }
 
-        public void Interact(Player player)
+        public void AddProduct(Product product)
         {
+            for (var i = 0; i < _maxProducts; i++)
+            {
+                if (!_productPlaces[i].IsEmpty)
+                {
+                    continue;
+                }
+
+
+            }
+        }
+
+        public bool Interact(PlayerHands playerHands)
+        {
+            if (playerHands.CurrentPickable is not StorageBox storageBox)
+                return false;
+
+            var player = playerHands.Player;
+
             if (IsFull())
             {
-                player.CharacterAnimator.SetEmoteNo();
-                return;
+                // todo возможно это побочный эффект.
+                // Требуется ли разделять - не подходит предмет для объекта или интеракция не удалась???
+                return false;
             }
 
-            player.CharacterAnimator.SetInteract();
-            AddProduct(player.transform);
+            if (storageBox.IsEmpty)
+            {
+                return false;
+            }
+
+            var product = storageBox.GetProduct();
+
+            if (product.ProductTag != _productTag)
+            {
+                return false;
+            }
+
+
+
+            // AddProduct(player.transform);
             LevelManager.Instance.AddReceivedExperience(10);
+
+            return true;
         }
 
         public void ShowInfo()

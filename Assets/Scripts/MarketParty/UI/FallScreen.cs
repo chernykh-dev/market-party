@@ -1,4 +1,6 @@
-﻿using TMPro;
+﻿using System.Threading.Tasks;
+using MarketParty.Managers;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -8,6 +10,9 @@ namespace MarketParty.UI
 {
     public class FallScreen : MonoBehaviour
     {
+        [SerializeField]
+        private TMP_Text _waveFailed;
+
         [SerializeField]
         private TMP_Text _earnedMoney;
 
@@ -36,7 +41,7 @@ namespace MarketParty.UI
             _exitButton.onClick.RemoveAllListeners();
         }
 
-        public void Show(int earnedMoney, int receivedExperience)
+        public void Show(int currentWave, int earnedMoney, int receivedExperience)
         {
             if (!_isShowing)
             {
@@ -44,13 +49,15 @@ namespace MarketParty.UI
                 _isShowing = true;
             }
 
+            _waveFailed.text = $"WAVE {currentWave} FAILED!";
             _earnedMoney.text = $"Earned $ {earnedMoney}";
             _receivedExperience.text = $"Received {receivedExperience} XP";
         }
 
         private void TryAgain()
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            StartCoroutine(GameManager.Instance.LoadCurrentSceneAsync(
+                () => GameManager.Instance.ResetGame()));
         }
 
         private void Exit()

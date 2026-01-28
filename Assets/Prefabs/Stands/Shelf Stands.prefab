@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -8720319241084201114, guid: f33fa091b47acd04eb9eabd357c613d4, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f33fa091b47acd04eb9eabd357c613d4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -48,6 +52,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8140567345767584143, guid: f33fa091b47acd04eb9eabd357c613d4, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -7696638977546262008, guid: f33fa091b47acd04eb9eabd357c613d4, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: -5850022035626479942, guid: f33fa091b47acd04eb9eabd357c613d4, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -64,9 +76,33 @@ PrefabInstance:
       propertyPath: m_Name
       value: Shelf Stands
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: f33fa091b47acd04eb9eabd357c613d4, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4379482860719635261, guid: f33fa091b47acd04eb9eabd357c613d4, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4761003454247133607, guid: f33fa091b47acd04eb9eabd357c613d4, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4857046106583488998, guid: f33fa091b47acd04eb9eabd357c613d4, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 5747348241161060686, guid: f33fa091b47acd04eb9eabd357c613d4, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6067683309083007991, guid: f33fa091b47acd04eb9eabd357c613d4, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7338817244420848805, guid: f33fa091b47acd04eb9eabd357c613d4, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7923081283924841366, guid: f33fa091b47acd04eb9eabd357c613d4, type: 3}
       propertyPath: m_Enabled

@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using MarketParty.Interactables;
 using MarketParty.Managers;
 using MarketParty.UI;
 using UnityEngine;
@@ -9,10 +10,15 @@ namespace MarketParty.Characters
 {
     public class Customer : MonoBehaviour
     {
+        [SerializeField]
+        private CustomerWaitingUI _customerWaitingUIPrefab;
+
         private NavMeshAgent _agent;
         private CharacterAnimator _characterAnimator;
 
         private Transform _targetTransform;
+
+        private CustomerWaitingUI _customerWaitingUI;
 
         private bool _isInteracting = false;
 
@@ -82,6 +88,12 @@ namespace MarketParty.Characters
             {
                 _isInteracting = true;
 
+                _customerWaitingUI = Instantiate(_customerWaitingUIPrefab, transform);
+
+                _customerWaitingUI.transform.position = transform.position + transform.up * 1f;
+
+                _customerWaitingUI.Setup(this);
+
                 return;
             }
 
@@ -133,7 +145,9 @@ namespace MarketParty.Characters
 
             if (_visitedStands == _expectedProducts)
             {
-                MoveTo(PlacesManager.Instance.CashTransform.QueuePositionForCustomer(this).transform);
+                var queuePosition = PlacesManager.Instance.CashTransform.QueuePositionForCustomer(this);
+
+                MoveTo(queuePosition.transform);
             }
             else
             {
@@ -145,6 +159,8 @@ namespace MarketParty.Characters
         {
             EmotePopUpsManager.Instance.ShowCash(transform);
 
+            Destroy(_customerWaitingUI.gameObject);
+
             var queuePointToDestroy = _targetTransform;
 
             MoveTo(PlacesManager.Instance.ExitTransform);
@@ -155,6 +171,19 @@ namespace MarketParty.Characters
         public void MoveInQueue(CustomerQueuePoint queuePoint)
         {
             MoveTo(queuePoint.transform);
+        }
+
+        public void FailCustomer()
+        {
+            EmotePopUpsManager.Instance.ShowSadFace(transform);
+
+            FindFirstObjectByType<Cash>().RemoveCustomer(this);
+
+            var queuePointToDestroy = _targetTransform;
+
+            MoveTo(PlacesManager.Instance.ExitTransform);
+
+            Destroy(queuePointToDestroy.gameObject);
         }
     }
 }

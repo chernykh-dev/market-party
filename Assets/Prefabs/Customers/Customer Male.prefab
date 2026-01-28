@@ -185,6 +185,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 653662265fef4f1d932e40d4d9a0d57c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MarketParty.CustomerController
+  _customerWaitingUIPrefab: {fileID: 6848715606463616705, guid: 31e61cca2b1d9574f90d55b6bbf56c17, type: 3}
 --- !u!95 &3178797834638397894
 Animator:
   serializedVersion: 7

@@ -1,4 +1,5 @@
 ﻿using System;
+using MarketParty.Managers;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -13,6 +14,9 @@ namespace MarketParty.UI
         private GameObject[] _stars;
 
         [SerializeField]
+        private TMP_Text _waveCompleted;
+
+        [SerializeField]
         private TMP_Text _soldProducts;
 
         [SerializeField]
@@ -25,6 +29,9 @@ namespace MarketParty.UI
         private TMP_Text _productsToNextStar;
 
         [SerializeField]
+        private Button _continueButton;
+
+        [SerializeField]
         private Button _tryAgainButton;
 
         [SerializeField]
@@ -34,6 +41,8 @@ namespace MarketParty.UI
 
         private void OnEnable()
         {
+            _continueButton.onClick.AddListener(Continue);
+
             _tryAgainButton.onClick.AddListener(TryAgain);
 
             _exitButton.onClick.AddListener(Exit);
@@ -41,12 +50,15 @@ namespace MarketParty.UI
 
         private void OnDisable()
         {
+            _continueButton.onClick.RemoveAllListeners();
+
             _tryAgainButton.onClick.RemoveAllListeners();
 
             _exitButton.onClick.RemoveAllListeners();
         }
 
-        public void Show(int starsCount, int soldProducts, int earnedMoney, int receivedExperience, int? productsToNextStar)
+        public void Show(int currentWave, int starsCount, int soldProducts, int earnedMoney, int receivedExperience,
+            int? productsToNextStar)
         {
             if (!_isShowing)
             {
@@ -59,6 +71,7 @@ namespace MarketParty.UI
                 _stars[i].SetActive(true);
             }
 
+            _waveCompleted.text = $"WAVE {currentWave} COMPLETED!";
             _soldProducts.text = $"Sold {soldProducts} products";
             _earnedMoney.text = $"Earned $ {earnedMoney}";
             _receivedExperience.text = $"Received {receivedExperience} XP";
@@ -68,9 +81,23 @@ namespace MarketParty.UI
                 : "";
         }
 
+        private void Continue()
+        {
+            SceneManager.sceneLoaded += OnNextWaveLoaded;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+
+        private void OnNextWaveLoaded(Scene scene, LoadSceneMode mode)
+        {
+            SceneManager.sceneLoaded -= OnNextWaveLoaded;
+
+            GameManager.Instance.NextWave();
+        }
+
         private void TryAgain()
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            StartCoroutine(GameManager.Instance.LoadCurrentSceneAsync(
+                () => GameManager.Instance.ResetGame()));
         }
 
         private void Exit()

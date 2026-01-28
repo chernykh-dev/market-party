@@ -1,9 +1,12 @@
-﻿using MarketParty.Characters;
+﻿using System;
+using MarketParty.Characters;
+using MarketParty.Players;
+using MarketParty.Players.Pickables;
 
 namespace MarketParty.Interactables
 {
     public interface IInteractable
     {
-        void Interact(Player player);
+        bool Interact(PlayerHands playerHands);
     }
 }

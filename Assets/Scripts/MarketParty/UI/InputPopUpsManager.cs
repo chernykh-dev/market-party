@@ -19,6 +19,9 @@ namespace MarketParty.UI
         public void ShowPlaystationCrossButton(Transform target)
             => ShowInput(target, "playstation_button_color_cross");
 
+        public void ShowPlaystationSquareButton(Transform target)
+            => ShowInput(target, "playstation_button_color_square");
+
         private void ShowInput(Transform target, string inputName)
         {
             if (_inputPopUps.TryGetValue($"{target.gameObject.GetInstanceID()}{inputName}", out var existInputPopUp))

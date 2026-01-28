@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2491230905354937993
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6862129588197849555}
+  m_Layer: 0
+  m_Name: HandsPivot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6862129588197849555
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2491230905354937993}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.375, z: 0.425}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1632294591189653376}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1237832618047434859
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -52,13 +83,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Character Employee
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: d9e0f16340f732b478c32b15e25c582b, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: d9e0f16340f732b478c32b15e25c582b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6862129588197849555}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d9e0f16340f732b478c32b15e25c582b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5710557277959813528}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d9e0f16340f732b478c32b15e25c582b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -5843762586512034537}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d9e0f16340f732b478c32b15e25c582b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4383420612673820019}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d9e0f16340f732b478c32b15e25c582b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5960814875369723979}
@@ -75,6 +119,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 2802940647986557542}
   m_SourcePrefab: {fileID: 100100000, guid: d9e0f16340f732b478c32b15e25c582b, type: 3}
+--- !u!4 &1632294591189653376 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: d9e0f16340f732b478c32b15e25c582b, type: 3}
+  m_PrefabInstance: {fileID: 1237832618047434859}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2156313709215403322 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: d9e0f16340f732b478c32b15e25c582b, type: 3}
@@ -94,6 +143,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MarketParty.PlayerController
   _moveSpeed: 1
   _moveSprintSpeed: 2.5
+  _interactDistance: 1
+--- !u!114 &-5843762586512034537
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2156313709215403322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71e179b412314f9d97622197c3d54750, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MarketParty.Players.PlayerHands
+  _handsPivot: {fileID: 6862129588197849555}
+--- !u!114 &4383420612673820019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2156313709215403322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6081a95ac6143c3866ef9a72f613895, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MarketParty.Players.Pickables.EmptyHands
 --- !u!54 &5960814875369723979
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -205,6 +280,6 @@ MonoBehaviour:
   m_ActionEvents: []
   m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: 
-  m_DefaultActionMap: da3d0095-e0a8-4a7a-984f-c21e506d8ab3
+  m_DefaultActionMap: Character
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}

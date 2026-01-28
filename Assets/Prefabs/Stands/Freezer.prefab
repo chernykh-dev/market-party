@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5092485498266498976}
   - component: {fileID: 683171309496132469}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Product Place (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54,7 +54,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7708306338581372437}
   - component: {fileID: 7104946745487704386}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Product Place
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -98,7 +98,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1129386513391963596}
   - component: {fileID: 3934506398352289273}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Product Place (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -142,7 +142,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8433529767884859371}
   - component: {fileID: 2374311110549733903}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Product Place (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -227,6 +227,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 5b69eea637d30964cbfada581eab1813, type: 3}
       propertyPath: m_Name
       value: Freezer
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 5b69eea637d30964cbfada581eab1813, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

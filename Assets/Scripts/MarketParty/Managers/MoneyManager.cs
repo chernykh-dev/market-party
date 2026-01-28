@@ -15,5 +15,10 @@ namespace MarketParty.Managers
         {
             Money.Value += money;
         }
+
+        public void ResetMoney()
+        {
+            Money.Value = 0;
+        }
     }
 }

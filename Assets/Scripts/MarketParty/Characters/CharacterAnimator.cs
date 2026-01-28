@@ -10,6 +10,8 @@ namespace MarketParty.Characters
         private readonly int _animatorEmoteNo = Animator.StringToHash("emoteNo");
         private readonly int _animatorIsSprint = Animator.StringToHash("isSprint");
         private readonly int _animatorIsSit = Animator.StringToHash("isSit");
+        private readonly int _animatorPickUp = Animator.StringToHash("pickUp");
+        private readonly int _animatorThrow = Animator.StringToHash("throw");
 
         private Animator _animator;
 
@@ -36,6 +38,16 @@ namespace MarketParty.Characters
         public void SetSprint(bool isSprint)
         {
             _animator.SetBool(_animatorIsSprint, isSprint);
+        }
+
+        public void SetPickUp()
+        {
+            _animator.SetTrigger(_animatorPickUp);
+        }
+
+        public void SetThrow()
+        {
+            _animator.SetTrigger(_animatorThrow);
         }
     }
 }

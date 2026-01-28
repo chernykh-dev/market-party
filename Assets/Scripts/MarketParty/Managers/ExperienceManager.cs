@@ -16,5 +16,10 @@ namespace MarketParty.Managers
         {
             Experience.Value += amount;
         }
+
+        public void ResetExperience()
+        {
+            Experience.Value = 0;
+        }
     }
 }

@@ -9,7 +9,7 @@ namespace MarketParty.Managers
 {
     public class LevelManager : Singleton<LevelManager>, IInitializable
     {
-        private const float START_TIMER = 40f;
+        private const float START_TIMER = 60f;
 
         [SerializeField]
         private FinishScreen _finishScreen;
@@ -20,7 +20,12 @@ namespace MarketParty.Managers
         [SerializeField]
         private TMP_Text _timerText;
 
+        private int _currentWave = 1;
+
         private int _servedCustomers;
+        private int _failedCustomers;
+
+        private int _visitedCustomers => _servedCustomers + _failedCustomers;
         private int _expectedCustomers;
 
         private int _currentProducts;
@@ -39,6 +44,12 @@ namespace MarketParty.Managers
             _timer = START_TIMER;
 
             MusicManager.Instance.SetDefaultMusicSpeed();
+        }
+
+        public void SetWave(int currentWave, float timeForAdd)
+        {
+            _timer += timeForAdd;
+            _currentWave = currentWave;
         }
 
         private void Update()
@@ -80,7 +91,19 @@ namespace MarketParty.Managers
             _servedCustomers++;
             _currentProducts += customer.TakedProducts;
 
-            if (_servedCustomers == _expectedCustomers)
+            if (_visitedCustomers == _expectedCustomers)
+            {
+                CalculateLevelPoints();
+            }
+        }
+
+        public void FailCustomer(Customer customer)
+        {
+            AddEarnedMoney(-customer.TakedProducts * 10 / 2);
+
+            _failedCustomers++;
+
+            if (_visitedCustomers == _expectedCustomers)
             {
                 CalculateLevelPoints();
             }
@@ -139,7 +162,7 @@ namespace MarketParty.Managers
         private void ShowFinishScreen(int starsCount, int? productsToNextStar)
         {
             _finishScreen.gameObject.SetActive(true);
-            _finishScreen.Show(starsCount, _currentProducts, _earnedMoney, _receivedExperience, productsToNextStar);
+            _finishScreen.Show(_currentWave, starsCount, _currentProducts, _earnedMoney, _receivedExperience, productsToNextStar);
         }
 
         private void ShowFallScreen()
@@ -147,7 +170,7 @@ namespace MarketParty.Managers
             _finished = true;
 
             _fallScreen.gameObject.SetActive(true);
-            _fallScreen.Show(_earnedMoney, _receivedExperience);
+            _fallScreen.Show(_currentWave, _earnedMoney, _receivedExperience);
 
             PlayersManager.Instance.DisablePlayerInputs();
         }

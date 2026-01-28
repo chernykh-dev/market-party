@@ -66,6 +66,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0167755c8a3148b18c89be8456d7ea8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MarketParty.FenceDoorTrigger
+  _tagForTrigger: 1
 --- !u!1001 &5933648786041195833
 PrefabInstance:
   m_ObjectHideFlags: 0
