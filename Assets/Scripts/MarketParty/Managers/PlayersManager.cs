@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using MarketParty.Characters;
+using MarketParty.Characters.Players;
 using UnityEngine;
 using UnityEngine.InputSystem;
 

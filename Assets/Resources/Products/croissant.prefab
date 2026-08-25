@@ -77,4 +77,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcee7cf92b504c23a30340100a523221, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MarketParty.Product
-  ProductTag: 0
+  <ProductName>k__BackingField: 14
+  <ProductType>k__BackingField: 8
+  <ProductTag>k__BackingField: 0

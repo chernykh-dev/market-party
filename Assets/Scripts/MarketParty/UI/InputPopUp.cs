@@ -1,5 +1,4 @@
 ﻿using System;
-using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,6 +8,9 @@ namespace MarketParty.UI
     {
         [SerializeField]
         private Image _image;
+
+        [SerializeField]
+        private Image _pressProgressBar;
 
         private float _timer = 0f;
         private Action _destroyCallback;
@@ -35,6 +37,8 @@ namespace MarketParty.UI
 
             _image.sprite = sprite;
 
+            ResetProgress();
+
             ContinueShow();
 
             _destroyCallback = destroyCallback;
@@ -43,6 +47,29 @@ namespace MarketParty.UI
         public void ContinueShow()
         {
             _timer = 0f;
+        }
+
+        public bool IsProgressReached(float step, float final)
+        {
+            _timer = 0f;
+            var newFillAmount = _pressProgressBar.fillAmount;
+
+            newFillAmount += step / final;
+
+            print($"li progress: {newFillAmount}");
+
+            _pressProgressBar.fillAmount = newFillAmount;
+            if (newFillAmount >= 1f)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public void ResetProgress()
+        {
+            _pressProgressBar.fillAmount = 0f;
         }
     }
 }

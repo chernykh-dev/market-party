@@ -1,5 +1,6 @@
 ﻿using System;
 using MarketParty.Characters;
+using MarketParty.Characters.Customers;
 using UnityEngine;
 using UnityEngine.UI;
 

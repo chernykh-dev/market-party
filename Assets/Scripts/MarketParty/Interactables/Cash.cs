@@ -1,15 +1,19 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using MarketParty.Characters;
+using MarketParty.Characters.Customers;
+using MarketParty.Characters.Players;
+using MarketParty.Characters.Players.Pickables;
 using MarketParty.Managers;
-using MarketParty.Players;
-using MarketParty.Players.Pickables;
 using UnityEngine;
 
 namespace MarketParty.Interactables
 {
     public class Cash : MonoBehaviour, ILongInteractable
     {
+        [field: SerializeField]
+        public float TimeForInteract { get; set; } = 0.5f;
+
         private CustomerQueuePoint _customersEnterPoint;
 
         private Queue<Customer> _customers = new Queue<Customer>();

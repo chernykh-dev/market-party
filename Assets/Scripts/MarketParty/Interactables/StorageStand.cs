@@ -1,8 +1,8 @@
 ﻿using DG.Tweening;
 using MarketParty.Characters;
+using MarketParty.Characters.Players;
+using MarketParty.Characters.Players.Pickables;
 using MarketParty.Managers;
-using MarketParty.Players;
-using MarketParty.Players.Pickables;
 using UnityEngine;
 
 namespace MarketParty.Interactables

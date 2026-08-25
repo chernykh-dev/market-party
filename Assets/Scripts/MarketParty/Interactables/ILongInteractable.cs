@@ -1,12 +1,13 @@
 ﻿using System;
 using MarketParty.Characters;
-using MarketParty.Players;
-using MarketParty.Players.Pickables;
+using MarketParty.Characters.Players;
 
 namespace MarketParty.Interactables
 {
     public interface ILongInteractable
     {
+        float TimeForInteract { get; }
+
         bool LongInteract(PlayerHands playerHands);
     }
 }

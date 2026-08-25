@@ -1,6 +1,7 @@
 ﻿using System;
 using DG.Tweening;
 using MarketParty.Characters;
+using MarketParty.Characters.Customers;
 using MarketParty.UI;
 using TMPro;
 using UnityEngine;

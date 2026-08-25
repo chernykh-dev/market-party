@@ -11,6 +11,8 @@ namespace MarketParty.UI
 
         private InputPopUp _currentInputPopUp;
 
+        public InputPopUp CurrentInputPopUp => _currentInputPopUp;
+
         public void Init()
         {
 
@@ -24,18 +26,18 @@ namespace MarketParty.UI
 
         private void ShowInput(Transform target, string inputName)
         {
-            if (_inputPopUps.TryGetValue($"{target.gameObject.GetInstanceID()}{inputName}", out var existInputPopUp))
+            if (_inputPopUps.TryGetValue($"{target.gameObject.GetInstanceID()}{inputName}", out _currentInputPopUp))
             {
-                existInputPopUp.ContinueShow();
+                _currentInputPopUp.ContinueShow();
                 return;
             }
 
-            var inputPopUp = Instantiate(_inputPopUpPrefab, target);
-            inputPopUp.transform.position = target.position + target.up * 1f;
-            inputPopUp.Show(inputName,
+            _currentInputPopUp = Instantiate(_inputPopUpPrefab, target);
+            _currentInputPopUp.transform.position = target.position + target.up * 1f;
+            _currentInputPopUp.Show(inputName,
                 () => _inputPopUps.Remove($"{target.gameObject.GetInstanceID()}{inputName}"));
 
-            _inputPopUps.Add($"{target.gameObject.GetInstanceID()}{inputName}", inputPopUp);
+            _inputPopUps.Add($"{target.gameObject.GetInstanceID()}{inputName}", _currentInputPopUp);
         }
     }
 }

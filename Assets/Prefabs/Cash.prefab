@@ -188,6 +188,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74e43898eaac482a902aaee23b5d601b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MarketParty.Cash
+  <TimeForInteract>k__BackingField: 1
 --- !u!114 &5173428451096128712
 MonoBehaviour:
   m_ObjectHideFlags: 0

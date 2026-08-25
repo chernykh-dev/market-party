@@ -8,6 +8,8 @@ namespace MarketParty.Managers
     {
         private List<Product> _productPrefabs;
 
+        // todo product -> productIcon.
+
         public void Init()
         {
             _productPrefabs = Resources.LoadAll<Product>("Products").ToList();

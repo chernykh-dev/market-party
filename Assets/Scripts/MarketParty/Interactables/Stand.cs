@@ -2,9 +2,9 @@
 using System.Linq;
 using DG.Tweening;
 using MarketParty.Characters;
+using MarketParty.Characters.Players;
+using MarketParty.Characters.Players.Pickables;
 using MarketParty.Managers;
-using MarketParty.Players;
-using MarketParty.Players.Pickables;
 using MarketParty.UI;
 using UnityEngine;
 
