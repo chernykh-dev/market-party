@@ -119,6 +119,9 @@ namespace MarketParty.Interactables
                 productPlace.Product = product;
                 productPlace.IsEmpty = false;
 
+
+                product.DisablePhysics();
+
                 product.transform.DOJump(_productPlaces[i].transform.position, 1f, 1, 0.5f)
                     .OnComplete(() =>
                     {
