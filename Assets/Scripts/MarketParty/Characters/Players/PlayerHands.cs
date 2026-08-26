@@ -1,4 +1,5 @@
-﻿using DG.Tweening;
+﻿using System;
+using DG.Tweening;
 using MarketParty.Characters.Players.Pickables;
 using MarketParty.Interactables;
 using UnityEngine;
@@ -29,6 +30,31 @@ namespace MarketParty.Characters.Players
             Player = GetComponent<Player>();
         }
 
+        Vector3 prevPos;
+
+        public Vector3 Velocity { get; private set; }
+
+        private void FixedUpdate()
+        {
+            if (CurrentPickable == _emptyHands)
+            {
+                return;
+            }
+
+            var rb = CurrentPickable.gameObject.GetComponent<Rigidbody>();
+
+            var t = 1f - Mathf.Exp(-15f * Time.fixedDeltaTime);
+
+            var pos = Vector3.Lerp(rb.position, _handsPivot.position, t);
+            var rot = Quaternion.Slerp(rb.rotation, _handsPivot.rotation, t);
+
+            rb.MovePosition(pos);
+            rb.MoveRotation(rot);
+
+            Velocity = (pos - prevPos) / Time.fixedDeltaTime;
+            prevPos = pos;
+        }
+
         public bool TryInteract(IInteractable interactable)
         {
             return interactable.Interact(this);
@@ -51,8 +77,15 @@ namespace MarketParty.Characters.Players
 
             pickable.gameObject.transform.SetParent(_handsPivot);
             // todo rotate to nearest (0, 180) for mirrored-z objects.
-            pickable.gameObject.transform.DOLocalRotateQuaternion(Quaternion.identity, PickDuration);
-            pickable.gameObject.transform.DOLocalJump(Vector3.zero, PickJumpForce, PickJumpsCount, PickDuration);
+            pickable.gameObject.transform
+                .DOLocalRotateQuaternion(Quaternion.identity, PickDuration);
+            pickable.gameObject.transform
+                .DOLocalJump(Vector3.zero, PickJumpForce, PickJumpsCount, PickDuration)
+                .OnComplete(() =>
+                {
+                    pickable.gameObject.transform.SetParent(null);
+                    prevPos = pickable.gameObject.GetComponent<Rigidbody>().position;
+                });
 
             return true;
         }

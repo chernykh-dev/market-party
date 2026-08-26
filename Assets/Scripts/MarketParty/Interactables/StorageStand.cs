@@ -24,7 +24,13 @@ namespace MarketParty.Interactables
 
             // todo add rigidbody, remove parent.
             product.transform.SetParent(storageBox.transform);
-            product.transform.DOLocalJump(Vector3.zero, 0.5f, 1, 0.5f);
+            product.transform
+                .DOLocalJump(Vector3.up * 0.25f, 0.5f, 1, 0.5f)
+                .OnComplete(() =>
+                {
+                    product.transform.SetParent(null);
+                    product.EnablePhysics();
+                });
 
             storageBox.AddProduct(product);
 
