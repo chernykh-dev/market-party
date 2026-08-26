@@ -47,8 +47,6 @@ namespace MarketParty.Characters.Players
                 return false;
             }
 
-            print(pickable.gameObject.name);
-
             CurrentPickable = pickable;
 
             pickable.gameObject.transform.SetParent(_handsPivot);

@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace MarketParty.Interactables
 {
-    public class Stand : MonoBehaviour, IStand, IInteractable, IInfoable
+    public class Stand : MonoBehaviour, IStand, IInteractable, IInfoable, IInitializable
     {
         [SerializeField]
         private ProductTag _productTag;
@@ -24,17 +24,24 @@ namespace MarketParty.Interactables
 
         private StandInfoPopUp _standInfoPopUp;
 
+        public int MaxProducts => _maxProducts;
+
         private void Start()
+        {
+            Init();
+
+            /*
+            for (var i = 0; i < _maxProducts; i++)
+            {
+                InitializeProductByTag(i);
+            }
+            */
+        }
+
+        public void Init()
         {
             _productPlaces = GetComponentsInChildren<StandProductPlace>().ToList();
             _maxProducts = _productPlaces.Count;
-
-            for (var i = 0; i < _maxProducts; i++)
-            {
-                _productPlaces[i].SetProduct(ProductsManager.Instance.GetRandomProductPrefab(_productTag));
-
-                _availableProducts.Add(i);
-            }
         }
 
         public bool ContainsProducts()
@@ -45,6 +52,13 @@ namespace MarketParty.Interactables
         public bool IsFull()
         {
             return _availableProducts.Count == _maxProducts;
+        }
+
+        public void InitializeProductByTag(int index)
+        {
+            _productPlaces[index].SetProduct(ProductsManager.Instance.GetRandomProductPrefab(_productTag));
+
+            _availableProducts.Add(index);
         }
 
         public Product ReserveRandomProduct(Transform to)
@@ -102,12 +116,12 @@ namespace MarketParty.Interactables
 
                 _availableProducts.Add(i);
 
+                productPlace.Product = product;
+                productPlace.IsEmpty = false;
+
                 product.transform.DOJump(_productPlaces[i].transform.position, 1f, 1, 0.5f)
                     .OnComplete(() =>
                     {
-                        productPlace.Product = product;
-                        productPlace.IsEmpty = true;
-
                         product.transform.SetParent(productPlace.transform);
                     });
 
